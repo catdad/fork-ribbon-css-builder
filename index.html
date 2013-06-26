@@ -2,6 +2,18 @@
 <html>
 <head>
 	<style>
+		html, body{
+			margin: 0; padding: 0;
+			background-color: #e5e5e5;
+			color: #898989;
+			font-family: sans-serif;
+			font-size: .9em;
+		}
+		.title{
+			font-size: 2em;
+			margin: 15px;
+		}
+		
 		.flat{
 			box-shadow: 0 0 0 3px #F6C304 !important;
 			text-shadow: none !important;
@@ -21,10 +33,30 @@
 		#locRight{ text-align: left; }
 		
 		textarea{ width: 550px; height: 150px; }
+		
+		#note{
+			display: block;
+			padding: 5px;
+			text-align: left;
+			font-weight: bold;
+			background-color: #F8EEA5;
+			border-bottom: 1px solid #F6C304;
+		}
+		#note div{ width: 66em; margin: 0 auto;}
 	</style>
 </head>
 <body>
 	<a id="fork" class="" href="#">Fork me on GitHub</a>
+	
+	<div id="note">
+		<div>
+		This project (and documentation) is still a work in progress. 
+		If you have any suggestions, please submit them on the GitHub page. 
+		Once the project features have been finalized, this message will be remoted.
+		</div>
+	</div>
+	
+	<div class="title">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
 	
 	<div>
 		<div id="locLeft">
