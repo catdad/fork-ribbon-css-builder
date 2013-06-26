@@ -39,8 +39,13 @@
 		#locLeft{ text-align: right; }
 		#locRight{ text-align: left; }
 		
+		input[type="text"] { padding: 5px; }
 		textarea, input[name="link"]{ width: 550px; padding: 5px; }
 		textarea{ height: 150px; }
+		
+		#picker { width: 200px; height: 200px; display: inline-block; }
+		#slider { width: 20px; height: 200px; display: inline-block; }
+	
 		
 		#note{
 			display: block;
@@ -67,8 +72,11 @@
 	<div class="heading">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
 	
 	<div class="section">
-		<div class="title">TODO: Ribbon color(Color picker)</div>
-		
+		<div class="title">Ribbon color</div>
+		<div id="picker"></div>
+		<div id="slider"></div>
+		<br/>
+		<input type="text" name="hex" placeholder="color" />
 	</div>
 	
 	<div class="section">
@@ -100,6 +108,7 @@
 	<div class="section"><textarea id="text"></textarea></div>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="misc/colorpicker.min.js"></script>
 	<script>
 		function O(id){ return document.getElementById(id) }
 		
@@ -202,6 +211,21 @@
 			vars.flat = this.checked;
 			console.log(vars.flat);
 		});	
+		
+		//color picker
+		var cp = ColorPicker( O('slider'), O('picker'),
+		function(hex, hsv, rgb) {
+			vars.color = hex;
+			$("input[name=hex]").val(hex);
+			set();
+		});
+		//init color picker
+		cp.setHex( vars.color );
+		
+		//manual hex change
+		$("input[name=hex]").change(function(){
+			cp.setHex(this.value);
+		});
 		
 		//init ribbon
 		set();
