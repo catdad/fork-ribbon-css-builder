@@ -41,14 +41,14 @@
 	-webkit-transform:rotate(45deg) !important;
 }
 .bottom-left{
-	top: auto !important;
+	top: auto !important; /* reset */
 	bottom: 50px !important;
 	left: -50px !important;
 	
 	-webkit-transform:rotate(45deg) !important;
 }
 .bottom-right{
-	top: auto !important;
+	top: auto !important; /* reset */
 	bottom: 50px !important;
 	right: -50px !important;
 	

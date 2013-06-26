@@ -6,6 +6,7 @@
 			margin: 0; padding: 0;
 			background-color: #e5e5e5;
 			color: #898989;
+			text-align: center;
 			font-family: sans-serif;
 			font-size: .9em;
 		}
@@ -23,7 +24,9 @@
 			border-color: #555 !important;
 		}
 		
-		body{ text-align: center; }
+		.section{
+			margin: 15px 0;
+		}
 		
 		#locLeft, #locRight{
 			display: inline-block;
@@ -58,7 +61,9 @@
 	
 	<div class="title">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
 	
-	<div>
+	<div class="section">TODO: color picker</div>
+	
+	<div class="section">
 		<div id="locLeft">
 			<div>Top Left <input type="radio" name="location" value="topLeft" /></div>
 			<div>Bottom Left <input type="radio" name="location" value="bottomLeft" /></div>
@@ -69,10 +74,12 @@
 		</div>
 	</div>
 	
-	Flat <input name="flat" type="checkbox" /> <br/>
-	Dark <input name="dark" type="checkbox" />
+	<div class="section">
+		Flat <input name="flat" type="checkbox" /> <br/>
+		Dark <input name="dark" type="checkbox" />
+	</div>
 	
-	<div><textarea id="text"></textarea></div>
+	<div class="section"><textarea id="text"></textarea></div>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script>
