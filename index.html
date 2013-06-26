@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+	<style>
+		#-fork{
+			/* positioning */
+			position: fixed;
+			-top: 50px;
+			-right: -50px;
+			padding: 5px 45px;
+			width: 123px; /* don't ask */
+			
+			/* looks */
+			background-color: #F6C304;
+			color: #fff;
+			font-size: 13px;
+			font-family: sans-serif;
+			text-decoration: none; 
+			font-weight: bold;
+			
+			/* rotation */
+			-ms-transform:rotate(45deg);
+			-moz-transform:rotate(45deg);
+			-webkit-transform:rotate(45deg);
+			transform: rotate(45deg);
+			
+			/* ribbon effects */
+			border: 2px dotted #fff;
+			box-shadow: 0 0 0 3px #F6C304, 0 0px 20px -3px rgba(0,0,0,.5);
+			text-shadow: 0 0 5px rgba(0,0,0,.5);
+		}
+		
+		/* configs */
+		.top-left{
+			top: 50px !important;
+			left: -50px !important;
+			
+			-webkit-transform:rotate(315deg) !important;
+		}
+		.top-right{
+			top: 50px !important;
+			right: -50px !important;
+			
+			-webkit-transform:rotate(45deg) !important;
+		}
+		.bottom-left{
+			top: auto !important;
+			bottom: 50px !important;
+			left: -50px !important;
+			
+			-webkit-transform:rotate(45deg) !important;
+		}
+		.bottom-right{
+			top: auto !important;
+			bottom: 50px !important;
+			right: -50px !important;
+			
+			-webkit-transform:rotate(315deg) !important;
+		}
+		
+		.flat{
+			box-shadow: 0 0 0 3px #F6C304 !important;
+			text-shadow: none !important;
+		}
+		.dark{
+			color: #555 !important;
+			border-color: #555 !important;
+		}
+		
+		body{ text-align: center; }
+		
+		#locLeft, #locRight{
+			display: inline-block;
+			width: 200px;
+		}
+		#locLeft{ text-align: right; }
+		#locRight{ text-align: left; }
+		
+		textarea{ width: 550px; height: 150px; }
+	</style>
+</head>
+<body>
+	<a id="fork" class="" href="#">Fork me on GitHub</a>
+	
+	<div>
+		<div id="locLeft">
+			<div>Top Left <input type="radio" name="location" value="topLeft" /></div>
+			<div>Bottom Left <input type="radio" name="location" value="bottomLeft" /></div>
+		</div>
+		<div id="locRight">
+			<div><input type="radio" name="location" value="topRight" checked /> Top Right</div>
+			<div><input type="radio" name="location" value="bottomRight" /> Bottom Right</div>
+		</div>
+	</div>
+	
+	Flat <input name="flat" type="checkbox" /> <br/>
+	Dark <input name="dark" type="checkbox" />
+	
+	<div><textarea id="text"></textarea></div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script>
+		function O(id){ return document.getElementById(id) }
+		
+		function getText(style){
+			return "<a href='#' style='" + style + "'>Fork me on GitHub</a>";
+		}
+		
+		var position = {
+			topLeft: function(){
+				return 	"top:50px;" +
+						"left:-50px;" +
+						"-ms-transform:rotate(315deg);" +
+						"-moz-transform:rotate(315deg);" +
+						"-webkit-transform:rotate(315deg);" +
+						"transform: rotate(315deg);";
+			},
+			topRight: function(){
+				return 	"top:50px;" +
+						"right:-50px;" +		
+						"-ms-transform:rotate(45deg);" +
+						"-moz-transform:rotate(45deg);" +
+						"-webkit-transform:rotate(45deg);" + // translate3d( 0, 0, 0);" +
+						"transform: rotate(45deg);";
+			},
+			bottomLeft: function(){
+				return 	"bottom:50px;" +
+						"left:-50px;" +
+						"-ms-transform:rotate(45deg);" +
+						"-moz-transform:rotate(45deg);" +
+						"-webkit-transform:rotate(45deg);" +
+						"transform: rotate(45deg);";
+			},
+			bottomRight: function(){
+				return 	"bottom:50px;" +
+						"right:-50px;" +
+						"-ms-transform:rotate(315deg);" +
+						"-moz-transform:rotate(315deg);" +
+						"-webkit-transform:rotate(315deg);" +
+						"transform: rotate(315deg);";
+			}
+		}
+		
+		var ribbon = function(color){
+			return 	"" +
+					//"-webkit-backface-visibility: hidden;" +
+					"position:fixed;" +
+					"padding:5px 45px;" +
+					"width:123px;" +
+					"background-color:" + color + ";" +
+					"color:#fff;" +
+					"font-size:13px;" +
+					"font-family:sans-serif;" +
+					"text-decoration:none; " +
+					"font-weight:bold;" +
+					"border:2px dotted #fff;" +
+					"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);" +
+					"text-shadow:0 0 5px rgba(0,0,0,.5);";
+		}
+		
+		var embelishments = {
+			dark: false,
+			flat: false
+		}
+		
+		function set(color, pos){
+			if (!color) color = '#F6C304';
+			
+			var style = ribbon(color) + position[pos]();
+			O("fork").setAttribute( 'style', style );
+			
+			$("#text").html( getText(style) );
+		}
+		
+		$("input[name=location]").change(function(el){
+			set(null, el.target.value);
+		});
+		
+		function look(){
+			if (this.checked) O("fork").classList.add(this.name);
+			else O("fork").classList.remove(this.name);
+		}
+		
+		$("input[name=flat]").change(look);
+		$("input[name=dark]").change(look);
+		
+		set('#F6C304', 'topRight');
+	</script>
+</body>
+</html>
