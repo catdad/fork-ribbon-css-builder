@@ -35,7 +35,8 @@
 		#locLeft{ text-align: right; }
 		#locRight{ text-align: left; }
 		
-		textarea{ width: 550px; height: 150px; }
+		textarea, input[name="link"]{ width: 550px; padding: 5px; }
+		textarea{ height: 150px; }
 		
 		#note{
 			display: block;
@@ -65,12 +66,12 @@
 	
 	<div class="section">
 		<div id="locLeft">
-			<div>Top Left <input type="radio" name="location" value="topLeft" /></div>
-			<div>Bottom Left <input type="radio" name="location" value="bottomLeft" /></div>
+			<div>Top Left <input type="radio" name="position" value="topLeft" /></div>
+			<div>Bottom Left <input type="radio" name="position" value="bottomLeft" /></div>
 		</div>
 		<div id="locRight">
-			<div><input type="radio" name="location" value="topRight" checked /> Top Right</div>
-			<div><input type="radio" name="location" value="bottomRight" /> Bottom Right</div>
+			<div><input type="radio" name="position" value="topRight" checked /> Top Right</div>
+			<div><input type="radio" name="position" value="bottomRight" /> Bottom Right</div>
 		</div>
 	</div>
 	
@@ -79,16 +80,29 @@
 		Dark <input name="dark" type="checkbox" />
 	</div>
 	
+	<div class="section"><input name="link" placeholder="Link URL" /></div>
+	
 	<div class="section"><textarea id="text"></textarea></div>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script>
 		function O(id){ return document.getElementById(id) }
 		
-		function getText(style){
-			return "<a href='#' style='" + style + "'>Fork me on GitHub</a>";
+		//default config
+		var vars = {
+			position: "topRight",
+			color: "#F6C304",
+			text: "#fff",
+			link: "#",
+			flat: false
 		}
 		
+		//generates ribbon text
+		function getText(style){
+			return "<a href='" + vars.link + "' style='" + style + "'>Fork me on GitHub</a>";
+		}
+		
+		//generates position css
 		var position = {
 			topLeft: function(){
 				return 	"top:50px;" +
@@ -124,6 +138,7 @@
 			}
 		}
 		
+		//generates ribbon css
 		var ribbon = function(color){
 			return 	"" +
 					//"-webkit-backface-visibility: hidden;" +
@@ -141,22 +156,17 @@
 					"text-shadow:0 0 5px rgba(0,0,0,.5);";
 		}
 		
-		var embelishments = {
-			dark: false,
-			flat: false
-		}
-		
-		function set(color, pos){
-			if (!color) color = '#F6C304';
-			
-			var style = ribbon(color) + position[pos]();
+		//sets new ribbon style and code
+		function set(){
+			var style = ribbon(vars.color) + position[vars.position]();
 			O("fork").setAttribute( 'style', style );
 			
 			$("#text").html( getText(style) );
 		}
 		
-		$("input[name=location]").change(function(el){
-			set(null, el.target.value);
+		$("input[name=position]").change(function(el){
+			vars.position = el.target.value;
+			set();
 		});
 		
 		function look(){
@@ -164,10 +174,16 @@
 			else O("fork").classList.remove(this.name);
 		}
 		
+		$("input[name=link]").change(function(){
+			vars.link = this.value;
+			set();
+		});
+		
 		$("input[name=flat]").change(look);
 		$("input[name=dark]").change(look);
 		
-		set('#F6C304', 'topRight');
+		//init ribbon
+		set();
 	</script>
 </body>
 </html>
