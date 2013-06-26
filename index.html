@@ -96,11 +96,7 @@
 		<input name="text" type="radio" value="#fff" /> White
 		<input name="text" type="radio" value="#e5e5e5" /> Gray
 		<input name="text" type="radio" value="#555" /> Black
-	</div>
-	
-	<div class="section">
-		<div class="title">Other</div>
-		Flat <input name="flat" type="checkbox" /> <br/>
+		<input name="flat" type="checkbox" /> Flat
 	</div>
 	
 	<div class="section"><input name="link" placeholder="Link URL" /></div>
@@ -176,8 +172,10 @@
 					"text-decoration:none; " +
 					"font-weight:bold;" +
 					"border:2px dotted " + vars.text + ";" +
-					"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);" +
-					"text-shadow:0 0 5px rgba(0,0,0,.5);";
+					((vars.flat) ? 
+						"box-shadow:0 0 0 3px " + color + ";" :
+						"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);") +
+					((vars.flat) ? "" : "text-shadow:0 0 5px rgba(0,0,0,.5);");
 		}
 		
 		//sets new ribbon style and code
@@ -209,7 +207,7 @@
 		//shadow flag change
 		$("input[name=flat]").change(function(){
 			vars.flat = this.checked;
-			console.log(vars.flat);
+			set();
 		});	
 		
 		//color picker
