@@ -10,7 +10,7 @@
 			font-family: sans-serif;
 			font-size: .9em;
 		}
-		.title{
+		.heading{
 			font-size: 2em;
 			margin: 15px;
 		}
@@ -26,6 +26,10 @@
 		
 		.section{
 			margin: 15px 0;
+		}
+		.section .title{
+			font-size: 1.3em;
+			margin: 5px 0 2px;
 		}
 		
 		#locLeft, #locRight{
@@ -60,11 +64,15 @@
 		</div>
 	</div>
 	
-	<div class="title">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
-	
-	<div class="section">TODO: color picker</div>
+	<div class="heading">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
 	
 	<div class="section">
+		<div class="title">TODO: Ribbon color(Color picker)</div>
+		
+	</div>
+	
+	<div class="section">
+		<div class="title">Position on the page</div>
 		<div id="locLeft">
 			<div>Top Left <input type="radio" name="position" value="topLeft" /></div>
 			<div>Bottom Left <input type="radio" name="position" value="bottomLeft" /></div>
@@ -76,8 +84,15 @@
 	</div>
 	
 	<div class="section">
+		<div class="title">Font color</div>
+		<input name="text" type="radio" value="#fff" /> White
+		<input name="text" type="radio" value="#e5e5e5" /> Gray
+		<input name="text" type="radio" value="#555" /> Black
+	</div>
+	
+	<div class="section">
+		<div class="title">Other</div>
 		Flat <input name="flat" type="checkbox" /> <br/>
-		Dark <input name="dark" type="checkbox" />
 	</div>
 	
 	<div class="section"><input name="link" placeholder="Link URL" /></div>
@@ -146,12 +161,12 @@
 					"padding:5px 45px;" +
 					"width:123px;" +
 					"background-color:" + color + ";" +
-					"color:#fff;" +
+					"color:" + vars.text + ";" +
 					"font-size:13px;" +
 					"font-family:sans-serif;" +
 					"text-decoration:none; " +
 					"font-weight:bold;" +
-					"border:2px dotted #fff;" +
+					"border:2px dotted " + vars.text + ";" +
 					"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);" +
 					"text-shadow:0 0 5px rgba(0,0,0,.5);";
 		}
@@ -164,23 +179,29 @@
 			$("#text").html( getText(style) );
 		}
 		
-		$("input[name=position]").change(function(el){
-			vars.position = el.target.value;
+		//radio button change
+		function setRadio(ev){
+			vars[ev.target.name] = ev.target.value;
 			set();
-		});
+		}
+		$("input[type=radio]").change(setRadio);
 		
 		function look(){
 			if (this.checked) O("fork").classList.add(this.name);
 			else O("fork").classList.remove(this.name);
 		}
 		
+		//link text change
 		$("input[name=link]").change(function(){
 			vars.link = this.value;
 			set();
 		});
 		
-		$("input[name=flat]").change(look);
-		$("input[name=dark]").change(look);
+		//shadow flag change
+		$("input[name=flat]").change(function(){
+			vars.flat = this.checked;
+			console.log(vars.flat);
+		});	
 		
 		//init ribbon
 		set();
