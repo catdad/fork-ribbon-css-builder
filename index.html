@@ -162,9 +162,7 @@
 		
 		//generates ribbon css
 		var ribbon = function(color){
-			return 	"" +
-					//"-webkit-backface-visibility: hidden;" +
-					"position:fixed;" +
+			var str = "position:fixed;" +
 					"padding:5px 45px;" +
 					"width:123px;" +
 					"background-color:" + color + ";" +
@@ -172,12 +170,20 @@
 					"font-size:13px;" +
 					"font-family:sans-serif;" +
 					"text-decoration:none; " +
-					"font-weight:bold;" +
-					"border:2px dotted " + vars.text + ";" +
-					((vars.flat) ? 
-						"box-shadow:0 0 0 3px " + color + ";" :
-						"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);") +
-					((vars.flat) ? "" : "text-shadow:0 0 5px rgba(0,0,0,.5);");
+					"font-weight:bold;";
+					
+			str += "-webkit-backface-visibility: hidden;"; //anti-aliasing fix
+			
+			var border = "border:2px dotted " + vars.text + ";" +
+						((vars.flat) ? 
+							"box-shadow:0 0 0 3px " + color + ";" :
+							"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);");
+			
+			//white shadow is part of the anti-alisaing fix
+			var shadow = ((vars.flat) ? "text-shadow:0 0 0 white;" : 
+										"text-shadow:0 0 0 white,0 0 5px rgba(0,0,0,.3);");
+			
+			return str + border + shadow;
 		}
 		
 		//sets new ribbon style and code
