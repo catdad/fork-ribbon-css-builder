@@ -24,7 +24,10 @@
 	/* ribbon effects */
 	border: 2px dotted #fff;
 	box-shadow: 0 0 0 3px #F6C304, 0 0px 20px -3px rgba(0,0,0,.5);
-	text-shadow: 0 0 5px rgba(0,0,0,.5);
+	text-shadow: 0 0 white /* antialias color fix */ , 0 0 5px rgba(0,0,0,.5);
+	
+	/* webkit antialias fix */
+	-webkit-backface-visibility: hidden;
 }
 
 /* other configurations */
