@@ -20,4 +20,4 @@ If you want to see how all the magic happens, and configure it by hand, check ou
 
 ##License
 
-The ribbon code is yours to use however you would like. The project itself is licensed under a [Creative Commons Attribution 3.0 License](http://creativecommons.org/licenses/by/3.0/). Please use, adapt, and modify this project to your heart's content. Link back to this page wherever you can.
+The ribbon code is yours to use however you would like. The source itself is licensed under the MIT X11 License. Please use, adapt, and modify this project to your heart's content. Link back to this page wherever you can.
