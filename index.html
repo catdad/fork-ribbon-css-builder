@@ -180,8 +180,8 @@
 							"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);");
 			
 			//white shadow is part of the anti-alisaing fix
-			var shadow = ((vars.flat) ? "text-shadow:0 0 0 white;" : 
-										"text-shadow:0 0 0 white,0 0 5px rgba(0,0,0,.3);");
+			var shadow = ((vars.flat) ? "text-shadow:0 0 0 " + vars.text + ";" : 
+										"text-shadow:0 0 0 " + vars.text + ",0 0 5px rgba(0,0,0,.3);");
 			
 			return str + border + shadow;
 		}
