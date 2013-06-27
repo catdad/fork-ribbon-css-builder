@@ -45,12 +45,18 @@
 		#locRight{ text-align: left; }
 		
 		input[type="text"] { padding: 5px; }
-		textarea, input[name="link"]{ width: 550px; padding: 5px; }
-		textarea{ height: 150px; }
+		textarea{ height: 12em; }
+		textarea, input[type="text"]{
+			width: 550px;
+			padding: 5px;
+			color: inherit;
+			background-color: #f5f5f5;
+			border: 1px solid #898989;
+		}
+		input[name="hex"]{ width: 100px; }
 		
 		#picker { width: 200px; height: 200px; display: inline-block; }
 		#slider { width: 20px; height: 200px; display: inline-block; }
-	
 		
 		#note{
 			display: block;
@@ -64,7 +70,7 @@
 	</style>
 </head>
 <body>
-	<a id="fork" class="" href="#">Fork me on GitHub</a>
+	<a id="fork" class="" href="https://github.com/catdad/fork-ribbon-css-builder">Fork me on GitHub</a>
 	
 	<div id="note">
 		<div>
@@ -104,7 +110,7 @@
 		<input name="flat" type="checkbox" /> Flat
 	</div>
 	
-	<div class="section"><input name="link" placeholder="Link URL" /></div>
+	<div class="section"><input type="text" name="link" placeholder="Link URL" /></div>
 	
 	<div class="section"><textarea id="text"></textarea></div>
 	
