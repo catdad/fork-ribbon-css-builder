@@ -5,7 +5,7 @@
 	-top: 50px;
 	-right: -50px;
 	padding: 5px 45px;
-	width: 123px; /* don't ask */
+	width: 128px; /* don't ask */
 	
 	/* looks */
 	background-color: #F6C304;
@@ -28,6 +28,7 @@
 	
 	/* webkit antialias fix */
 	-webkit-backface-visibility: hidden;
+	letter-spacing: .5px;
 }
 
 /* other configurations */

@@ -174,7 +174,7 @@
 		var ribbon = function(color){
 			var str = "position:fixed;" +
 					"padding:5px 45px;" +
-					"width:123px;" +
+					"width:128px;" +
 					"background-color:" + color + ";" +
 					"color:" + vars.text + ";" +
 					"font-size:13px;" +
@@ -183,6 +183,7 @@
 					"font-weight:bold;";
 					
 			str += "-webkit-backface-visibility:hidden;"; //anti-aliasing fix
+			str += "letter-spacing: .5px;"; //less-crowded letters
 			
 			var border = "border:2px dotted " + vars.text + ";" +
 						((vars.flat) ? 
