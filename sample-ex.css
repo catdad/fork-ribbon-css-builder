@@ -1,0 +1,97 @@
+/* this is the top-right ribbon configuration */
+.ribbon{
+	/* positioning */
+	position: fixed;
+	top: 50px;
+	right: -50px;
+	padding: 5px 45px;
+	width: 128px; /* don't ask */
+	
+	/* looks */
+	background-color: #F6C304;
+	color: #fff;
+	font-size: 13px;
+	font-family: sans-serif;
+	text-decoration: none; 
+	font-weight: bold;
+	
+	/* rotation */
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	
+	/* ribbon effects */
+	border: 2px dotted #fff;
+	box-shadow: 0 0 0 3px #F6C304, 0 0px 20px -3px rgba(0,0,0,.5);
+	text-shadow: 0 0 white /* antialias color fix */ , 0 0 5px rgba(0,0,0,.5);
+	
+	/* webkit antialias fix */
+	-webkit-backface-visibility: hidden;
+	letter-spacing: .5px;
+}
+
+/* other configurations */
+.top-right{
+    /* standard positioning */
+	top: 50px;
+	right: -50px;
+	
+    /* IE8 positioning */
+    top: -25px\9;
+    right: -75px\9;
+    /* IE7 positioning */
+    *top: -25px;
+    *right: -30px;
+    /* IE6 positioning */
+    _top: -25px;
+    _right: -30px;
+    
+    /* .rotate45 */
+}
+.bottom-left{
+	top: auto !important; /* reset */
+	bottom: 50px !important;
+	left: -50px !important;
+	
+    /* .rotate45 */
+}
+
+.top-left{
+	top: 50px !important;
+	left: -50px !important;
+	
+    /* .rotate315 */
+}
+.bottom-right{
+	top: auto !important; /* reset */
+	bottom: 50px !important;
+	right: -50px !important;
+	
+    /* .rotate315 */	
+}
+
+.rotate45{
+    /* standard rotation */
+    -webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	
+    /* IE8+ rotation */ 
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865474, M12=-0.7071067811865477, M21=0.7071067811865477, M22=0.7071067811865474, SizingMethod='auto expand')";
+   
+    /* IE6 and 7 rotation */ 
+    *filter: progid:DXImageTransform.Microsoft.Matrix(
+            M11=0.7071067811865474,
+            M12=-0.7071067811865477,
+            M21=0.7071067811865477,
+            M22=0.7071067811865474,
+            SizingMethod='auto expand');
+}
+
+.rotate315{
+	/* standard rotation */
+    -webkit-transform: rotate(315deg);
+	   -moz-transform: rotate(315deg);
+	    -ms-transform: rotate(315deg);
+	        transform: rotate(315deg);
+}
