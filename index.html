@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/png" href="misc/ribbon.png" />
 	
 	<style>
-		html, body{
+		html, body {
 			margin: 0; padding: 0;
 			background-color: #e5e5e5;
 			color: #898989;
@@ -15,70 +15,54 @@
 			font-family: sans-serif;
 			font-size: .9em;
 		}
-		.heading{
+		.heading {
 			font-size: 2em;
 			margin: 15px;
 		}
 		
-		.flat{
+		.flat {
 			box-shadow: 0 0 0 3px #F6C304 !important;
 			text-shadow: none !important;
 		}
-		.dark{
+		.dark {
 			color: #555 !important;
 			border-color: #555 !important;
 		}
 		
-		.section{
+		.section {
 			margin: 15px 0;
 		}
-		.section .title{
+		.section .title {
 			font-size: 1.3em;
 			margin: 5px 0 2px;
 		}
 		
-		#locLeft, #locRight{
+		#locLeft, #locRight {
 			display: inline-block;
 			width: 200px;
 		}
-		#locLeft{ text-align: right; }
-		#locRight{ text-align: left; }
+		#locLeft { text-align: right; }
+		#locRight { text-align: left; }
 		
 		input[type="text"] { padding: 5px; }
-		textarea{ height: 12em; }
-		textarea, input[type="text"]{
+		textarea { height: 12em; }
+		textarea, input[type="text"] {
 			width: 550px;
 			padding: 5px;
 			color: inherit;
 			background-color: #f5f5f5;
 			border: 1px solid #898989;
 		}
-		input[name="hex"]{ width: 100px; }
+		input[name="hex"] { width: 100px; }
 		
 		#picker { width: 200px; height: 200px; display: inline-block; }
 		#slider { width: 20px; height: 200px; display: inline-block; }
-		
-		#note{
-			display: block;
-			padding: 5px;
-			text-align: left;
-			font-weight: bold;
-			background-color: #F8EEA5;
-			border-bottom: 1px solid #F6C304;
-		}
-		#note div{ width: 66em; margin: 0 auto;}
+        
+        
 	</style>
 </head>
 <body>
 	<a id="fork" class="" href="https://github.com/catdad/fork-ribbon-css-builder">Fork me on GitHub</a>
-	
-	<!--div id="note">
-		<div>
-		This project (and documentation) is still a work in progress. 
-		If you have any suggestions, please submit them on the GitHub page. 
-		Once the project features have been finalized, this message will be remoted.
-		</div>
-	</div-->
 	
 	<div class="heading">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
 	
@@ -111,6 +95,11 @@
 	</div>
 	
 	<div class="section"><input type="text" name="link" placeholder="Link URL" /></div>
+	
+	<div class="section">
+        <div class="title">CSS Code</div>
+        <pre></pre>
+    </div>
 	
 	<div class="section"><textarea id="text"></textarea></div>
 	
