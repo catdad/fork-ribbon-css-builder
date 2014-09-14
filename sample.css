@@ -1,5 +1,5 @@
 /* this is the top-right ribbon configuration */
-#ribbon{
+.ribbon{
 	/* positioning */
 	position: fixed;
 	-top: 50px;
@@ -16,10 +16,10 @@
 	font-weight: bold;
 	
 	/* rotation */
-	-ms-transform:rotate(45deg);
-	-moz-transform:rotate(45deg);
-	-webkit-transform:rotate(45deg);
-	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
 	
 	/* ribbon effects */
 	border: 2px dotted #fff;
@@ -33,28 +33,40 @@
 
 /* other configurations */
 .top-left{
-	top: 50px !important;
-	left: -50px !important;
+	top: 50px;
+	left: -50px;
 	
-	-webkit-transform:rotate(315deg) !important;
+    -webkit-transform: rotate(315deg);
+	   -moz-transform: rotate(315deg);
+	    -ms-transform: rotate(315deg);
+	        transform: rotate(315deg);
 }
 .top-right{
-	top: 50px !important;
-	right: -50px !important;
+	top: 50px;
+	right: -50px;
 	
-	-webkit-transform:rotate(45deg) !important;
+    -webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
 }
 .bottom-left{
 	top: auto !important; /* reset */
-	bottom: 50px !important;
-	left: -50px !important;
+	bottom: 50px;
+	left: -50px;
 	
-	-webkit-transform:rotate(45deg) !important;
+    -webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
 }
 .bottom-right{
 	top: auto !important; /* reset */
-	bottom: 50px !important;
-	right: -50px !important;
+	bottom: 50px;
+	right: -50px;
 	
-	-webkit-transform:rotate(315deg) !important;
+    -webkit-transform: rotate(315deg);
+	   -moz-transform: rotate(315deg);
+	    -ms-transform: rotate(315deg);
+	        transform: rotate(315deg);
 }
