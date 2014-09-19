@@ -1,0 +1,92 @@
+/**
+ * This LESS style sheet contains mustache variables, to be replaced before the sheet
+ * is processed to CSS. These include the following variables:
+ * - {{ribbonColor}} : the main color for the ribbon and accents
+ * - {{textColor}} : the color of the text and some accents
+ * - {{mixins}} : LESS mixins to add to the style. These include the position and flatness mixins.
+ */
+
+@ribbon-color: {{ribbonColor}};
+@text-color: {{textColor}};
+
+/* main ribbon code */
+.ribbon{
+	/* positioning */
+	position: fixed;
+	padding: 5px 45px;
+	width: 128px; // don't ask
+    
+    // mixins dynamically inserted at runtime
+    {{mixins}}
+    // .flat OR .non-flat
+    // position mixin
+	
+	/* looks */
+	background-color: @ribbon-color;
+	color: @text-color;
+	font-size: 13px;
+	font-family: sans-serif;
+	text-decoration: none; 
+	font-weight: bold;
+	
+	/* ribbon effects */
+	border: 2px dotted @text-color;
+	
+	/* webkit antialias fix */
+	-webkit-backface-visibility: hidden;
+	letter-spacing: .5px;
+}
+
+.flat {
+    /* flat ribbon effects */
+    box-shadow: 0 0 0 3px @ribbon-color;
+    text-shadow:0 0 0 @text-color;
+}
+
+.non-flat {
+    /* effects with some shadow */
+    box-shadow: 0 0 0 3px @ribbon-color, 0 0 20px -3px rgba(0,0,0,.5);
+    text-shadow:0 0 0 @text-color,0 0 5px rgba(0,0,0,.3);
+}
+
+/* position configurations */
+.top-left{
+    /* top left of the page */
+	top: 50px;
+	left: -50px;
+	
+    -webkit-transform: rotate(315deg);
+	   -moz-transform: rotate(315deg);
+	    -ms-transform: rotate(315deg);
+	        transform: rotate(315deg);
+}
+.top-right{
+    /* top right of the page */
+	top: 50px;
+	right: -50px;
+	
+    -webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+.bottom-left{
+    /* bottom left of the page */
+	bottom: 50px;
+	left: -50px;
+	
+    -webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+.bottom-right{
+    /* bottom right of the page */
+	bottom: 50px;
+	right: -50px;
+	
+    -webkit-transform: rotate(315deg);
+	   -moz-transform: rotate(315deg);
+	    -ms-transform: rotate(315deg);
+	        transform: rotate(315deg);
+}

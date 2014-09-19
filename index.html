@@ -13,28 +13,26 @@
 			color: #898989;
 			text-align: center;
 			font-family: sans-serif;
-			font-size: .9em;
+			font-size: .95em;
 		}
+        body{
+            width: 95%;
+            max-width: 600px;
+            margin: 0 auto;
+            z-index: 0;
+        }
+        
 		.heading {
 			font-size: 2em;
 			margin: 15px;
-		}
-		
-		.flat {
-			box-shadow: 0 0 0 3px #F6C304 !important;
-			text-shadow: none !important;
-		}
-		.dark {
-			color: #555 !important;
-			border-color: #555 !important;
 		}
 		
 		.section {
 			margin: 15px 0;
 		}
 		.section .title {
-			font-size: 1.3em;
-			margin: 5px 0 2px;
+			font-size: 1.2em;
+			margin: 1.4em 0 0;
 		}
 		
 		#locLeft, #locRight {
@@ -44,27 +42,45 @@
 		#locLeft { text-align: right; }
 		#locRight { text-align: left; }
 		
-		input[type="text"] { padding: 5px; }
-		textarea { height: 12em; }
-		textarea, input[type="text"] {
-			width: 550px;
-			padding: 5px;
-			color: inherit;
-			background-color: #f5f5f5;
-			border: 1px solid #898989;
+		pre, input[type="text"] {
+            box-sizing: border-box;
+            width: 100%;
+			padding: 10px;
+            margin: 10px 0 0;
+			background-color: white;
+			border: 1px solid gray;
+            border-radius: 2px;
+            
+            font-size: 1.2em;
+        }
+        input[type="text"] { 
+            color: inherit;
 		}
 		input[name="hex"] { width: 100px; }
-		
+		pre {
+            color: black;
+            font-weight: normal;
+            text-align: left;
+            
+            white-space: pre-wrap;
+        }
+        
+        
 		#picker { width: 200px; height: 200px; display: inline-block; }
 		#slider { width: 20px; height: 200px; display: inline-block; }
         
+        #fork { z-index: 4; }
         
+        .CodeMirror.CodeMirror {
+            height: auto;
+            z-index: 1;
+        }
 	</style>
 </head>
 <body>
-	<a id="fork" class="" href="https://github.com/catdad/fork-ribbon-css-builder">Fork me on GitHub</a>
+	<a id="fork" class="" href="https://github.com/catdad/fork-ribbon-css-builder" style="display: none;">Fork me on GitHub</a>
 	
-	<div class="heading">Pure CSS generator for the "Fork me on GitHub" ribbon</div>
+	<div class="heading">Pure CSS generator for the "Fork&nbsp;me&nbsp;on&nbsp;GitHub" ribbon</div>
 	
 	<div class="section">
 		<div class="title">Ribbon color</div>
@@ -77,12 +93,12 @@
 	<div class="section">
 		<div class="title">Position on the page</div>
 		<div id="locLeft">
-			<div>Top Left <input type="radio" name="position" value="topLeft" /></div>
-			<div>Bottom Left <input type="radio" name="position" value="bottomLeft" /></div>
+			<div>Top Left <input type="radio" name="position" value="top-left" /></div>
+			<div>Bottom Left <input type="radio" name="position" value="bottom-left" /></div>
 		</div>
 		<div id="locRight">
-			<div><input type="radio" name="position" value="topRight" checked /> Top Right</div>
-			<div><input type="radio" name="position" value="bottomRight" /> Bottom Right</div>
+			<div><input type="radio" name="position" value="top-right" checked /> Top Right</div>
+			<div><input type="radio" name="position" value="bottom-right" /> Bottom Right</div>
 		</div>
 	</div>
 	
@@ -90,151 +106,35 @@
 		<div class="title">Font color</div>
 		<input name="text" type="radio" value="#fff" checked /> White
 		<input name="text" type="radio" value="#e5e5e5" /> Gray
-		<input name="text" type="radio" value="#555" /> Black
+		<input name="text" type="radio" value="#555" /> Dark
 		<input name="flat" type="checkbox" /> Flat
 	</div>
 	
-	<div class="section"><input type="text" name="link" placeholder="Link URL" /></div>
+	<div class="section">
+        <div class="title">Link URL</div>
+	    <input type="text" name="link" placeholder="http://github.com/user/repo" />
+    </div>
 	
 	<div class="section">
         <div class="title">CSS Code</div>
-        <pre></pre>
+        <pre id="rawcss"></pre>
     </div>
 	
-	<div class="section"><textarea id="text"></textarea></div>
+	<div class="section">
+        <div class="title">Copy and Paste</div>
+        <pre id="copypaste"></pre>
+    </div>
 	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.5.0/codemirror.min.css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.4/less.min.js"></script>
+	<script src="http://catdad.github.io/tiny.cdn/lib/request/0.3.0/request.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.5.0/codemirror.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.5.0/mode/css/css.min.js"></script>
+	
+	
 	<script type="text/javascript" src="misc/colorpicker.min.js"></script>
 	<script type="text/javascript" src="misc/analytics.js"></script>
-	<script>
-		function O(id){ return document.getElementById(id) }
-		
-		//default config
-		var vars = {
-			position: "topRight",
-			color: "#F6C304",
-			text: "#fff",
-			link: "#",
-			flat: false
-		}
-		
-		//generates ribbon text
-		function getText(style){
-			return "<a href='" + vars.link + "' style='" + style + "'>Fork me on GitHub</a>";
-		}
-		
-		//generates position css
-		var position = {
-			topLeft: function(){
-				return 	"top:50px;" +
-						"left:-50px;" +
-						"-ms-transform:rotate(315deg);" +
-						"-moz-transform:rotate(315deg);" +
-						"-webkit-transform:rotate(315deg);" +
-						"transform: rotate(315deg);";
-			},
-			topRight: function(){
-				return 	"top:50px;" +
-						"right:-50px;" +		
-						"-ms-transform:rotate(45deg);" +
-						"-moz-transform:rotate(45deg);" +
-						"-webkit-transform:rotate(45deg);" + // translate3d( 0, 0, 0);" +
-						"transform: rotate(45deg);";
-			},
-			bottomLeft: function(){
-				return 	"bottom:50px;" +
-						"left:-50px;" +
-						"-ms-transform:rotate(45deg);" +
-						"-moz-transform:rotate(45deg);" +
-						"-webkit-transform:rotate(45deg);" +
-						"transform: rotate(45deg);";
-			},
-			bottomRight: function(){
-				return 	"bottom:50px;" +
-						"right:-50px;" +
-						"-ms-transform:rotate(315deg);" +
-						"-moz-transform:rotate(315deg);" +
-						"-webkit-transform:rotate(315deg);" +
-						"transform: rotate(315deg);";
-			}
-		}
-		
-		//generates ribbon css
-		var ribbon = function(color){
-			var str = "position:fixed;" +
-					"padding:5px 45px;" +
-					"width:128px;" +
-					"background-color:" + color + ";" +
-					"color:" + vars.text + ";" +
-					"font-size:13px;" +
-					"font-family:sans-serif;" +
-					"text-decoration:none; " +
-					"font-weight:bold;";
-					
-			str += "-webkit-backface-visibility:hidden;"; //anti-aliasing fix
-			str += "letter-spacing: .5px;"; //less-crowded letters
-			
-			var border = "border:2px dotted " + vars.text + ";" +
-						((vars.flat) ? 
-							"box-shadow:0 0 0 3px " + color + ";" :
-							"box-shadow:0 0 0 3px " + color + ",0 0 20px -3px rgba(0,0,0,.5);");
-			
-			//white shadow is part of the anti-alisaing fix
-			var shadow = ((vars.flat) ? "text-shadow:0 0 0 " + vars.text + ";" : 
-										"text-shadow:0 0 0 " + vars.text + ",0 0 5px rgba(0,0,0,.3);");
-			
-			return str + border + shadow;
-		}
-		
-		//sets new ribbon style and code
-		function set(){
-			var style = ribbon(vars.color) + position[vars.position]();
-			O("fork").setAttribute( 'style', style );
-			
-			$("#text").html( getText(style) );
-		}
-		
-		//radio button change
-		function setRadio(ev){
-			vars[ev.target.name] = ev.target.value;
-			set();
-		}
-		$("input[type=radio]").change(setRadio);
-		
-		function look(){
-			if (this.checked) O("fork").classList.add(this.name);
-			else O("fork").classList.remove(this.name);
-		}
-		
-		//link text change
-		$("input[name=link]").change(function(){
-			vars.link = this.value;
-			set();
-		});
-		
-		//shadow flag change
-		$("input[name=flat]").change(function(){
-			vars.flat = this.checked;
-			set();
-		});	
-		
-		//color picker
-		var cp = ColorPicker( O('slider'), O('picker'),
-		function(hex, hsv, rgb) {
-			vars.color = hex;
-			$("input[name=hex]").val(hex);
-			set();
-		});
-		//init color picker
-		cp.setHex( vars.color );
-		
-		//manual hex change
-		$("input[name=hex]").change(function(){
-			cp.setHex(this.value);
-		});
-		
-		//init ribbon
-		set();
-	</script>
+	<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
