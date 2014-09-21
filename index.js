@@ -1,5 +1,43 @@
 /* jshint browser: true, devel: true */
-/* global $, less, request, ColorPicker, CodeMirror */
+/* global less, request, ColorPicker, prettyPrintOne */
+
+// util
+function O(id){ return document.getElementById(id); }
+function Q(selector){ return document.querySelector(selector); }
+function Qa(selector){ return document.querySelectorAll(selector); }
+
+// https://gist.github.com/catdad/11239214
+var forEach = function(obj, cb, context){
+    /* jshint -W030 */
+    
+    // check for a native forEach function
+    var native = [].forEach,
+        hasProp = Object.prototype.hasOwnProperty;
+    
+    // if there is a native function, use it
+    if (native && obj.forEach === native) {
+        //don't bother if there is no function
+        cb && obj.forEach(cb, context);
+    }
+    // if the object is array-like
+    else if (obj.length === +obj.length) {
+        // loop though all values
+        for (var i = 0, length = obj.length; i < length; i++) {
+            // call the function with the context and native-like arguments
+            cb && cb.call(context, obj[i], i, obj);
+        }
+    }
+    // it's an object, use the keys
+    else {
+        // loop through all keys
+        for (var name in obj){
+            // call the function with context and native-like arguments
+            if (hasProp.call(obj, name)) {
+                cb && cb.call(context, obj[name], name, obj);
+            }
+        }
+    }
+};
 
 //default config
 var vars = {
@@ -9,32 +47,26 @@ var vars = {
     color: "#F6C304",
     text: "#fff",
     link: "#",
-    flat: false
-};
-
-var dom = {
-    rawCSS: O("rawcss"),
-    copypaste: O("copypaste"),
+    flat: false,
     fork: O("fork")
 };
 
-var rawCSSCode = CodeMirror(dom.rawCSS, {
-    value: '\n',
-    mode: 'css',
-    readOnly: true,
-    tabSize: 8
-});
+var rawCSSCode = {
+    dom: O("rawcss"),
+    setValue: function(text){
+        text = text.replace(/\/\*[^*]+\*\//g, '');
+        this.dom.innerHTML = prettyPrintOne(text, "css");
+    }
+};
 var copypasteCode = {
-    dom: dom.copypaste,
+    dom: O("copypaste"),
     setValue: function (text){
         this.dom.innerHTML = "";
         var textNode = document.createTextNode(text);
         this.dom.appendChild(textNode);
+//        this.dom.innerHTML = prettyPrintOne(this.dom.innerHTML);
     }
 };
-
-// util
-function O(id){ return document.getElementById(id); }
 
 // run LESS compiler
 function getLessCode(text, callback) {
@@ -67,6 +99,11 @@ function parseRibbonCSS(css){
     return '';
 }
 
+//generates ribbon text
+function getAnchorText(style){
+    return "<a href='" + vars.link + "' style='" + style + "'>Fork me on GitHub</a>";
+}
+
 function init(){
     //sets new ribbon style and code
     function set(){
@@ -82,16 +119,25 @@ function init(){
             vars.cssRibbonCode = parseRibbonCSS(cssCode);
             
             var styleText = vars.cssRibbonCode
-                                    .replace(/\.ribbon\s{0,}\{/g, '')
-                                    .replace(/\}/g, '')
-                                    .replace(/\/\*[^*]+\*\//g, '')
-                                    .replace(/\s{2,}/g, '')
-                                    .replace(/\:\s/g, ':')
-                                    .trim();
+                                // remove the leading ".ribbon {"    
+                                .replace(/\.ribbon\s{0,}\{/g, '')
+                                // remove the ending "}"
+                                .replace(/\}/g, '')
+                                // remove any comments
+                                .replace(/\/\*[^*]+\*\//g, '')
+                                // remove multiple white spaces
+                                .replace(/\s{2,}/g, '')
+                                // remove white space after CSS name
+                                .replace(/\:\s/g, ':')
+                                // remove white space at the beginning and end of string
+                                .trim();
             
-            dom.fork.setAttribute('style', styleText);
+            // set the style on the preview ribbon
+            vars.fork.setAttribute('style', styleText);
             
-            copypasteCode.setValue( getText(styleText) );
+            // set the copy/pase anchor code block
+            copypasteCode.setValue( getAnchorText(styleText) );
+            // set the CSS code block
             rawCSSCode.setValue(vars.cssRibbonCode);
         });
     }
@@ -101,34 +147,36 @@ function init(){
         vars[ev.target.name] = ev.target.value;
         set();
     }
-    $("input[type=radio]").change(setRadio);
-
-    //link text change
-    $("input[name=link]").change(function(){
-        vars.link = this.value;
-        set();
+    forEach(Qa("input[type=radio]"), function(el){
+        el.onchange = setRadio;
     });
 
+    //link text change
+    Q("input[name=link]").onchange = function(){
+        vars.link = this.value;
+        set();
+    };
+
     //shadow flag change
-    $("input[name=flat]").change(function(){
+    Q("input[name=flat]").onchange = function(){
         vars.flat = this.checked;
         set();
-    });	
+    };	
 
     //color picker
     var cp = ColorPicker( O('slider'), O('picker'),
     function(hex, hsv, rgb) {
         vars.color = hex;
-        $("input[name=hex]").val(hex);
+        Q("input[name=hex]").value = hex.toUpperCase();
         set();
     });
     //init color picker
     cp.setHex( vars.color );
 
     //manual hex change
-    $("input[name=hex]").change(function(){
+    Q("input[name=hex]").onchange = function(){
         cp.setHex(this.value);
-    });   
+    };   
 }
 
 request({ url: 'sample.less' },function(err, body){
@@ -137,8 +185,3 @@ request({ url: 'sample.less' },function(err, body){
     
     init();
 });
-
-//generates ribbon text
-function getText(style){
-    return "<a href='" + vars.link + "' style='" + style + "'>Fork me on GitHub</a>";
-}
