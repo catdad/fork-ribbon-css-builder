@@ -54,7 +54,7 @@ var vars = {
 var rawCSSCode = {
     dom: O("rawcss"),
     setValue: function(text){
-        text = text.replace(/\/\*[^*]+\*\//g, '');
+        //text = text.replace(/\/\*[^*]+\*\//g, '');
         this.dom.innerHTML = prettyPrintOne(text, "css");
     }
 };
