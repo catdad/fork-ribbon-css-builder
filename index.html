@@ -2,10 +2,10 @@
 <html>
 <head>
 	<title>CSS Ribbon Builder</title>
-	
-	<!--link rel="shortcut icon" href="misc/ribbon.png" /--> 
+
+	<!--link rel="shortcut icon" href="misc/ribbon.png" /-->
 	<link rel="icon" type="image/png" href="misc/ribbon.png" />
-	
+
 	<style>
 		html, body {
 			margin: 0; padding: 0;
@@ -21,12 +21,12 @@
             margin: 0 auto;
             z-index: 0;
         }
-        
+
 		.heading {
 			font-size: 2em;
 			margin: 15px;
 		}
-		
+
 		.section {
 			margin: 15px 0;
 		}
@@ -34,14 +34,14 @@
 			font-size: 1.2em;
 			margin: 1.4em 0 0;
 		}
-		
+
 		#locLeft, #locRight {
 			display: inline-block;
 			width: 200px;
 		}
 		#locLeft { text-align: right; }
 		#locRight { text-align: left; }
-		
+
 		pre, input[type="text"] {
             box-sizing: border-box;
             width: 100%;
@@ -50,10 +50,10 @@
 			background-color: white;
 			border: 1px solid gray;
             border-radius: 2px;
-            
+
             font-size: 1.2em;
         }
-        input[type="text"] { 
+        input[type="text"] {
             color: inherit;
 		}
 		input[name="hex"] { width: 100px; }
@@ -61,16 +61,16 @@
             color: black;
             font-weight: normal;
             text-align: left;
-            
+
             white-space: pre-wrap;
         }
-        
-        
+
+
 		#picker { width: 200px; height: 200px; display: inline-block; }
 		#slider { width: 20px; height: 200px; display: inline-block; }
-        
+
         #fork { z-index: 4; }
-        
+
         .CodeMirror.CodeMirror {
             height: auto;
             z-index: 1;
@@ -79,9 +79,9 @@
 </head>
 <body>
 	<a id="fork" class="" href="https://github.com/catdad/fork-ribbon-css-builder" style="display: none;">Fork me on GitHub</a>
-	
+
 	<div class="heading">Pure CSS generator for the "Fork&nbsp;me&nbsp;on&nbsp;GitHub" ribbon</div>
-	
+
 	<div class="section">
 		<div class="title">Ribbon color</div>
 		<div id="picker"></div>
@@ -89,7 +89,7 @@
 		<br/>
 		<input type="text" name="hex" placeholder="color" />
 	</div>
-	
+
 	<div class="section">
 		<div class="title">Position on the page</div>
 		<div id="locLeft">
@@ -101,7 +101,7 @@
 			<div><input type="radio" name="position" value="bottom-right" /> Bottom Right</div>
 		</div>
 	</div>
-	
+
 	<div class="section">
 		<div class="title">Font color</div>
 		<input name="text" type="radio" value="#fff" checked /> White
@@ -109,28 +109,28 @@
 		<input name="text" type="radio" value="#555" /> Dark
 		<input name="flat" type="checkbox" /> Flat
 	</div>
-	
+
 	<div class="section">
         <div class="title">Link URL</div>
 	    <input type="text" name="link" placeholder="http://github.com/user/repo" />
     </div>
-	
+
 	<div class="section">
         <div class="title">CSS Code</div>
         <pre id="rawcss"></pre>
     </div>
-	
+
 	<div class="section">
         <div class="title">Copy and Paste</div>
         <pre id="copypaste"></pre>
     </div>
-	
+
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" />
-	
+
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.4/less.min.js"></script>
 	<script src="http://catdad.github.io/tiny.cdn/lib/request/0.3.0/request.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
-	
+
 	<script type="text/javascript" src="misc/colorpicker.min.js"></script>
 	<script type="text/javascript" src="misc/analytics.js"></script>
 	<script type="text/javascript" src="index.js"></script>
