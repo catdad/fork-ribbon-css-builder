@@ -9,11 +9,11 @@ function Qa(selector){ return document.querySelectorAll(selector); }
 // https://gist.github.com/catdad/11239214
 var forEach = function(obj, cb, context){
     /* jshint -W030 */
-    
+
     // check for a native forEach function
     var native = [].forEach,
         hasProp = Object.prototype.hasOwnProperty;
-    
+
     // if there is a native function, use it
     if (native && obj.forEach === native) {
         //don't bother if there is no function
@@ -74,16 +74,16 @@ function getLessCode(text, callback) {
         env: "Production",
         logLevel: 0
     });
-    
+
     lessParser.parsers.comments = function(){ return []; };
-    
+
     lessParser.parse(text, function(err, tree){
         if (err || !tree.toCSS) {
             callback(err || true);
         } else {
             callback(null, tree.toCSS());
         }
-    }, { 
+    }, {
 //        modifyVars: {
 //            '@ribbonColor': vars.color,
 //            '@textColor': vars.text
@@ -109,17 +109,17 @@ function init(){
     function set(){
         var flatMixin = (vars.flat) ? '.flat;' : '.non-flat;',
             positionMixin = '.' + vars.position + ';';
-        
+
         var lessCode = vars.templateLessCode
                         .replace(/{{ribbonColor}}/g, vars.color)
                         .replace(/{{textColor}}/g, vars.text)
                         .replace(/{{mixins}}/g, positionMixin + flatMixin);
-        
+
         getLessCode(lessCode, function(err, cssCode){
             vars.cssRibbonCode = parseRibbonCSS(cssCode);
-            
+
             var styleText = vars.cssRibbonCode
-                                // remove the leading ".ribbon {"    
+                                // remove the leading ".ribbon {"
                                 .replace(/\.ribbon\s{0,}\{/g, '')
                                 // remove the ending "}"
                                 .replace(/\}/g, '')
@@ -131,10 +131,10 @@ function init(){
                                 .replace(/\:\s/g, ':')
                                 // remove white space at the beginning and end of string
                                 .trim();
-            
+
             // set the style on the preview ribbon
             vars.fork.setAttribute('style', styleText);
-            
+
             // set the copy/pase anchor code block
             copypasteCode.setValue( getAnchorText(styleText) );
             // set the CSS code block
@@ -161,7 +161,7 @@ function init(){
     Q("input[name=flat]").onchange = function(){
         vars.flat = this.checked;
         set();
-    };	
+    };
 
     //color picker
     var cp = ColorPicker( O('slider'), O('picker'),
@@ -176,12 +176,12 @@ function init(){
     //manual hex change
     Q("input[name=hex]").onchange = function(){
         cp.setHex(this.value);
-    };   
+    };
 }
 
 request({ url: 'sample.less' },function(err, body){
     // save the code
     vars.templateLessCode = body;
-    
+
     init();
 });
