@@ -1,12 +1,12 @@
-##"Fork me on GitHub" Ribbon Builder
+# "Fork me on GitHub" Ribbon Builder
 
 Pure CSS "For me on GitHub" ribbon generator
 
-##How to
+## How to
 
 The builder is located at [catdad.github.io/fork-ribbon-css-builder](http://catdad.github.io/fork-ribbon-css-builder). Once there, you can preview the ribbon, change some attributes, and copy the code.
 
-##Note
+## Note
 
 This project is in no way endorced or sponsored by GitHub. I just wanted pure CSS ribbons that do not load an image. If you want the official ribbons, you can get them here: https://github.com/blog/273-github-ribbons
 
@@ -18,6 +18,6 @@ The position of this ribbon is set to `fixed`, rather than the original `absolut
 
 If you want to see how all the magic happens, and configure it by hand, check out the `sample.css` file.
 
-##License
+## License
 
 The ribbon code is yours to use however you would like. The source itself is licensed under the MIT X11 License. Please use, adapt, and modify this project to your heart's content. Link back to this page wherever you can.
